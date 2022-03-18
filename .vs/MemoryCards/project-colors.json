@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "bc95002a-3681-450c-bb75-3c337c7aac96": {
+      "ProjectGuid": "bc95002a-3681-450c-bb75-3c337c7aac96",
+      "DisplayName": "MemoryCards",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

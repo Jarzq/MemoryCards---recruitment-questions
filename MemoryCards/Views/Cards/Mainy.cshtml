@@ -1,0 +1,81 @@
+﻿@model MemoryCards.Models.CardModel
+
+@{
+    ViewData["Title"] = "Mainy";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+        function showDiv() {
+            document.getElementById('KnowOrNot').style.display = "block";
+            document.getElementById('ShowButton').style.display = "none";
+        }
+</script>
+
+
+<h1>Mainy</h1>
+<table style="background-color: darkgray" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+                
+            </th>
+         
+        </tr>
+    </thead>
+
+
+    <tr>
+            <td>
+                @Html.DisplayFor(model => model.Question)
+            </td>
+    </tr>
+</table> 
+
+
+         <div id="KnowOrNot" style="display: none;">
+
+            <table style="background-color: darkgray" class="table">
+              <thead>
+                  <tr>        
+                      <th>
+                         @Html.DisplayNameFor(model => model.Answer)               
+                     </th>
+                 <th></th>
+                 </tr>
+
+
+                 <tr>
+                      <td>
+                         @Html.DisplayFor(model => model.Answer)
+                     </td>         
+                
+                 </tr>
+               </thead>
+            </table>
+
+
+                 <form method="post" asp-action="Know" asp-route-id="@Model.Id" >
+                    <input type="submit" value="Know" class="btn btn-success" /> 
+                 </form>
+                    <br />
+                 <form asp-action="Mainy">
+                     <input type="submit" value="Dont Know" class="btn btn-primary"  />        
+                 </form>
+               
+                 
+                
+                
+         </div>
+
+          <a id="ShowButton" href="javascript:;" onclick="showDiv()">Show</a>
+          <br/>
+          <a asp-action="Index">Back to List</a>
+
+         
+
+         
+
+        
+   
