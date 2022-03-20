@@ -12,13 +12,13 @@ namespace MemoryCards.Repositories
         }
         public void Add(CardModel card)
         {
+             card.Id = _context.Cards.Count() + 1;
             _context.Cards.Add(card);
             _context.SaveChanges();
         }
             
 
         
-
         public CardModel Get(int id)
            => _context.Cards.SingleOrDefault(card => card.Id == id);
         
@@ -49,6 +49,19 @@ namespace MemoryCards.Repositories
 
         public IQueryable<CardModel> GetAll()
             => _context.Cards;
-        
+
+        public CardModel Details(int id)
+        {
+            var result = _context.Cards.SingleOrDefault(x => x.Id == id);
+            return result;
+        }
+
+        public void Know(int id)
+        {
+            var result = _context.Cards.SingleOrDefault(x => x.Id == id);
+            result.IsKnown = true;
+            result.level++;
+            _context.SaveChanges();
+        }
     }
 }

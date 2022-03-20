@@ -18,20 +18,13 @@ namespace MemoryCards.Controllers
             _service = service;
             _cardRepository = cardRepository;
         }
-        private static List<CardModel> cards = new List<CardModel>()
-        {
-            new CardModel() { Id = 1, Question ="Roznica miedzy int a int 32", Answer="brak roznicy",IsKnown=false, level=1},
-            new CardModel() { Id = 2, Question ="drugie pytanie", Answer="brak roznicy",IsKnown=false, level=1},
-            new CardModel() { Id = 3, Question ="trzecie pytanie", Answer="brak roznicy",IsKnown=false, level=1},
-            new CardModel() { Id = 4, Question ="czwarte pytanie", Answer="brak roznicy",IsKnown=false, level=1},
-            new CardModel() { Id = 5, Question ="piate pytanie", Answer="brak roznicy",IsKnown=false, level=1}
-        };
+        
         
 
         // GET: CardsController
         public ActionResult Mainy()
-        {           
-            var chosenCard = _service.Mainy(cards);
+        {
+            var chosenCard = _service.Mainy(_cardRepository.GetAll());
             if(chosenCard == null)
             {
                 return View("Gratulation");
@@ -50,7 +43,7 @@ namespace MemoryCards.Controllers
         // GET: CardsController/Details/5
         public ActionResult Details(int id)
         {
-            return View(cards.FirstOrDefault(x => x.Id == id));
+            return View(_cardRepository.Details(id));
         }
 
         // GET: CardsController/Create
@@ -63,17 +56,16 @@ namespace MemoryCards.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CardModel cardModel)
-        {
-                cardModel.Id = cards.Count + 1;
-                cards.Add(cardModel);
+        {       
+                
+                _cardRepository.Add(cardModel);
                 return RedirectToAction(nameof(Index));         
         }
 
         // GET: CardsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(cards.FirstOrDefault(x => x.Id == id));
-            
+            return View(_cardRepository.Get(id));
         }
 
         // POST: CardsController/Edit/5
@@ -81,19 +73,16 @@ namespace MemoryCards.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CardModel cardModel)
         {
-                CardModel card = cards.FirstOrDefault(x => x.Id == id);
-                card.Id = id;
-                card.Question = cardModel.Question;
-                card.Answer = cardModel.Answer;
-                card.level = cardModel.level;
-                return RedirectToAction(nameof(Index));   
+            _cardRepository.Update(id, cardModel);
+            return RedirectToAction(nameof(Index));   
                 
         }
 
         // GET: CardsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(cards.FirstOrDefault(x => x.Id == id));
+
+            return View(_cardRepository.Get(id));
         }
 
         // POST: CardsController/Delete/5
@@ -101,16 +90,14 @@ namespace MemoryCards.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, CardModel cardModel)
         {
-            var card = cards.FirstOrDefault(x => x.Id == id);
-            cards.Remove(card);
+            _cardRepository.Delete(id);
             return RedirectToAction(nameof(Index));       
         }
+
         [HttpPost]
         public ActionResult Know(int id)
         {
-            var result = cards.FirstOrDefault(x => x.Id == id);
-            result.IsKnown = true;
-            result.level++;
+            _cardRepository.Know(id);
 
             return RedirectToAction(nameof(Mainy));
         }

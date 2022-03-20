@@ -7,7 +7,6 @@ namespace MemoryCards.Models
         public CardManagerContext(DbContextOptions options) : base(options)
         {
         }
-
         public DbSet<CardModel> Cards { get; set; }
     }
 }
