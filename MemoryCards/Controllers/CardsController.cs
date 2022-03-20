@@ -5,15 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using MemoryCards.Services;
+using MemoryCards.Repositories;
 
 namespace MemoryCards.Controllers
 {
     public class CardsController : Controller
     {
+        private readonly ICardRepository _cardRepository;
         private readonly ICardService _service;
-        public CardsController(ICardService service)
+        public CardsController(ICardService service, ICardRepository cardRepository)
         {
             _service = service;
+            _cardRepository = cardRepository;
         }
         private static List<CardModel> cards = new List<CardModel>()
         {
@@ -24,9 +27,10 @@ namespace MemoryCards.Controllers
             new CardModel() { Id = 5, Question ="piate pytanie", Answer="brak roznicy",IsKnown=false, level=1}
         };
         
+
         // GET: CardsController
         public ActionResult Mainy()
-        {
+        {           
             var chosenCard = _service.Mainy(cards);
             if(chosenCard == null)
             {
@@ -40,7 +44,7 @@ namespace MemoryCards.Controllers
         }
         public ActionResult Index()
         {
-            return View(cards);
+            return View(_cardRepository.GetAll());
         }
 
         // GET: CardsController/Details/5
