@@ -12,11 +12,13 @@ namespace MemoryCards.Controllers
     public class CardsController : Controller
     {
         private readonly ICardRepository _cardRepository;
+        private  ICardTempRepository _cardTempRepository;
         private readonly ICardService _service;
-        public CardsController(ICardService service, ICardRepository cardRepository)
+        public CardsController(ICardService service, ICardRepository cardRepository, ICardTempRepository cardTempRepository)
         {
             _service = service;
             _cardRepository = cardRepository;
+            _cardTempRepository = cardTempRepository;
         }
         
         
@@ -24,7 +26,7 @@ namespace MemoryCards.Controllers
         // GET: CardsController
         public ActionResult Mainy()
         {
-            var chosenCard = _service.Mainy(_cardRepository.GetAll());
+            var chosenCard = _service.Mainy(_cardTempRepository.GetAll());
             if(chosenCard == null)
             {
                 return View("Gratulation");
@@ -37,7 +39,9 @@ namespace MemoryCards.Controllers
         }
         public ActionResult Index()
         {
-            return View(_cardRepository.GetAll());
+            var result = _service.ShuffleTen(_cardRepository.GetAll());
+            _cardTempRepository.Convert(result);
+            return View(_cardTempRepository.GetAll());   
         }
 
         // GET: CardsController/Details/5
@@ -97,8 +101,8 @@ namespace MemoryCards.Controllers
         [HttpPost]
         public ActionResult Know(int id)
         {
-            _cardRepository.Know(id);
-
+            _cardTempRepository.Know(id);
+            //_cardRepository.Know(id);
             return RedirectToAction(nameof(Mainy));
         }
     }

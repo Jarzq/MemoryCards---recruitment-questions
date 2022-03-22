@@ -31,7 +31,11 @@ namespace MemoryCards
             services.AddScoped<ICardService, CardService>();
             services.AddDbContext<CardManagerContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("CardManagerDatabase")));
+            services.AddDbContext<CardTempManagerContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("CardManagerDatabase")));
             services.AddTransient<ICardRepository, CardRepository>();
+            services.AddTransient<ICardTempRepository, CardTempRepository>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
