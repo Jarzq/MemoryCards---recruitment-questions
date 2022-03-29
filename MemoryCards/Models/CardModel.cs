@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace MemoryCards.Models
+﻿namespace MemoryCards.Models
 
 {
     public class CardModel

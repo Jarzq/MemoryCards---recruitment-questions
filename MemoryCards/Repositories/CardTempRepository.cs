@@ -1,8 +1,6 @@
 ﻿using MemoryCards.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace MemoryCards.Repositories
 {
@@ -11,7 +9,7 @@ namespace MemoryCards.Repositories
         private readonly CardTempManagerContext _context;
         public CardTempRepository(CardTempManagerContext context)
         {
-                _context = context;
+            _context = context;
         }
 
         public void Add(CardModel card)
@@ -23,17 +21,17 @@ namespace MemoryCards.Repositories
 
         public void Convert(List<CardModel> cards)
         {
-                _context.CardsTemp.RemoveRange(_context.CardsTemp);
-                _context.SaveChanges();
+            _context.CardsTemp.RemoveRange(_context.CardsTemp);
+            _context.SaveChanges();
 
             var results = cards.AsQueryable();
 
-            
+
             foreach (var result in results)
             {
                 _context.CardsTemp.Add(result);
                 _context.SaveChanges();
-            }       
+            }
         }
 
 
@@ -82,6 +80,6 @@ namespace MemoryCards.Repositories
             _context.SaveChanges();
         }
 
-       
+
     }
 }
