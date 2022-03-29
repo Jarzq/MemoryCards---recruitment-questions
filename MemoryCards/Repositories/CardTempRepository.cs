@@ -81,5 +81,7 @@ namespace MemoryCards.Repositories
             _context.CardsTemp.Remove(result);
             _context.SaveChanges();
         }
+
+       
     }
 }

@@ -103,5 +103,12 @@ namespace MemoryCards.Controllers
             _cardRepository.Know(id);
             return RedirectToAction(nameof(Mainy));
         }
+
+        [HttpPost]
+        public ActionResult DontKnow(int id)
+        {
+            _cardRepository.DontKnow(id);
+            return RedirectToAction(nameof(Mainy));
+        }
     }
 }

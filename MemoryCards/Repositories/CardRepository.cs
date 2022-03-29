@@ -11,7 +11,8 @@ namespace MemoryCards.Repositories
             _context = context;
         }
         public void Add(CardModel card)
-        { 
+        {
+            card.FirstAttemp = true;
             _context.Cards.Add(card);
             _context.SaveChanges();
         }
@@ -57,9 +58,23 @@ namespace MemoryCards.Repositories
         public void Know(int id)
         {
             var result = _context.Cards.SingleOrDefault(x => x.Id == id);
-            result.level++;
-            if(result.level>3)
+
+            if(result.FirstAttemp==true)
+            {
+                result.level++;
+            }
+            result.FirstAttemp = true;
+
+            if (result.level>3)
                 result.IsKnown=true;
+
+            _context.SaveChanges();
+        }
+
+        public void DontKnow(int id)
+        {
+            var result = _context.Cards.SingleOrDefault(x => x.Id == id);
+            result.FirstAttemp = false;
             _context.SaveChanges();
         }
     }

@@ -12,6 +12,7 @@ namespace MemoryCards.Repositories
 
         void Add(CardModel card);
         void Know(int id);
+        void DontKnow(int id);
 
         void Update(int id, CardModel model);
 
