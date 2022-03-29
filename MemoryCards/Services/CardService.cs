@@ -34,14 +34,36 @@ namespace MemoryCards.Services
         public List<CardModel> ShuffleTen(IQueryable<CardModel> cards)
         {
 
-            tempList = cards.ToList();                          
+            tempList = cards.ToList();
 
-            for (int i = 0; i < 5; i++)
+            //Removing from tempList all known items
+            foreach (var item in tempList)
             {
-                chosen = tempList[rnd.Next(0, tempList.Count)];
-                shuffledList.Add(chosen);
-                tempList.Remove(chosen);
+                if (item.IsKnown == false)
+                {
+                    tempList.Remove(chosen);
+                }
             }
+
+            //Shuffle templist
+            if (tempList.Count >= 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+
+                    chosen = tempList[rnd.Next(0, tempList.Count)];
+
+                    shuffledList.Add(chosen);
+                    tempList.Remove(chosen);
+
+                }
+            }
+            //if there are less than 5 items just return original list
+            else
+            {
+               return tempList;
+            }
+            
 
             //var newCards = shuffledList.AsQueryable();
             

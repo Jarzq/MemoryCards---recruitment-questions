@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MemoryCards.Repositories
 {
@@ -22,16 +23,17 @@ namespace MemoryCards.Repositories
 
         public void Convert(List<CardModel> cards)
         {
-            _context.CardsTemp.RemoveRange(_context.CardsTemp);
+                _context.CardsTemp.RemoveRange(_context.CardsTemp);
+                _context.SaveChanges();
+
             var results = cards.AsQueryable();
 
+            
             foreach (var result in results)
-            {   
-                result.Id = 0;
+            {
                 _context.CardsTemp.Add(result);
-            }
-           
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }       
         }
 
 

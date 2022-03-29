@@ -11,8 +11,7 @@ namespace MemoryCards.Repositories
             _context = context;
         }
         public void Add(CardModel card)
-        {
-            
+        { 
             _context.Cards.Add(card);
             _context.SaveChanges();
         }
@@ -59,6 +58,8 @@ namespace MemoryCards.Repositories
         {
             var result = _context.Cards.SingleOrDefault(x => x.Id == id);
             result.level++;
+            if(result.level>3)
+                result.IsKnown=true;
             _context.SaveChanges();
         }
     }

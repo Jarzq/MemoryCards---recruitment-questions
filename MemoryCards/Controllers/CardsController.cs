@@ -22,8 +22,6 @@ namespace MemoryCards.Controllers
         }
         
         
-
-        // GET: CardsController
         public ActionResult Mainy()
         {
             var chosenCard = _service.Mainy(_cardTempRepository.GetAll());
@@ -41,22 +39,22 @@ namespace MemoryCards.Controllers
         {
             var result = _service.ShuffleTen(_cardRepository.GetAll());
             _cardTempRepository.Convert(result);
-            return View(_cardTempRepository.GetAll());   
+            return View(_cardRepository.GetAll());   
         }
 
-        // GET: CardsController/Details/5
+       
         public ActionResult Details(int id)
         {
             return View(_cardRepository.Details(id));
         }
 
-        // GET: CardsController/Create
+        
         public ActionResult Create()
         {
             return View(new CardModel());
         }
 
-        // POST: CardsController/Create
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CardModel cardModel)
@@ -66,13 +64,13 @@ namespace MemoryCards.Controllers
                 return RedirectToAction(nameof(Index));         
         }
 
-        // GET: CardsController/Edit/5
+        
         public ActionResult Edit(int id)
         {
             return View(_cardRepository.Get(id));
         }
 
-        // POST: CardsController/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CardModel cardModel)
@@ -82,14 +80,14 @@ namespace MemoryCards.Controllers
                 
         }
 
-        // GET: CardsController/Delete/5
+       
         public ActionResult Delete(int id)
         {
 
             return View(_cardRepository.Get(id));
         }
 
-        // POST: CardsController/Delete/5
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, CardModel cardModel)
@@ -102,7 +100,7 @@ namespace MemoryCards.Controllers
         public ActionResult Know(int id)
         {
             _cardTempRepository.Know(id);
-            //_cardRepository.Know(id);
+            _cardRepository.Know(id);
             return RedirectToAction(nameof(Mainy));
         }
     }
