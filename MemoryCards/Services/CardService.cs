@@ -12,25 +12,22 @@ namespace MemoryCards.Services
     }
     public class CardService : ICardService
     {
-        List<CardModel> onlyNotKnown = new List<CardModel>();
+        
         List<CardModel> shuffledList = new List<CardModel>();
         List<CardModel> tempList = new List<CardModel>();
+        List<CardModel> withoutKnown = new List<CardModel>();
         private CardModel chosen;
         Random rnd = new Random();
         public CardModel Mainy(IQueryable<CardModel> cards)
         {
-            foreach(CardModel item in cards)
+            tempList = cards.ToList();
+            if (tempList.Count != 0)
             {
-                if (!item.IsKnown) { onlyNotKnown.Add(item); }
-            }
-            if(onlyNotKnown.Count != 0)
-            {
-                chosen = onlyNotKnown[rnd.Next(0, onlyNotKnown.Count)];
+                chosen = tempList[rnd.Next(0, tempList.Count)];
             }
 
             return chosen;
         }
-
         public List<CardModel> ShuffleTen(IQueryable<CardModel> cards)
         {
 
@@ -41,32 +38,29 @@ namespace MemoryCards.Services
             {
                 if (item.IsKnown == false)
                 {
-                    tempList.Remove(chosen);
+                    withoutKnown.Add(item);
                 }
             }
 
             //Shuffle templist
-            if (tempList.Count >= 5)
+            if (withoutKnown.Count >= 5)
             {
                 for (int i = 0; i < 5; i++)
                 {
-
-                    chosen = tempList[rnd.Next(0, tempList.Count)];
+                    chosen = withoutKnown[rnd.Next(0, withoutKnown.Count)];
 
                     shuffledList.Add(chosen);
-                    tempList.Remove(chosen);
+                    withoutKnown.Remove(chosen);
 
                 }
             }
             //if there are less than 5 items just return original list
             else
             {
-               return tempList;
+               return withoutKnown;
             }
             
-
-            //var newCards = shuffledList.AsQueryable();
-            
+            //var newCards = shuffledList.AsQueryable();           
             return shuffledList;
         }
     }
