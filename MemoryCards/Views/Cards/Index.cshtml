@@ -3,13 +3,26 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+    body{
+        background-color: #0e192b;
+    }
+    h1{
+        color: #fff;
+    }
+</style>
 <h1>All Your MemoryCards</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table style="background-color: darkgray" class="table">
+    <a asp-action="Create">
+        <input type="submit" value="Create new" class="btn btn-outline-primary"/>
+    </a>
+
+    <a asp-action="Mainy" >
+         <input type="submit" value="Start Learning" class="btn btn-outline-success"/>
+    </a>
+    <br/>
+
+<table style=" margin-top: 10px;" class="table table-dark">
     <thead>
         <tr>
             <th>
@@ -58,6 +71,4 @@
 }
     </tbody>
 </table>
-    <form method="post" asp-action="Mainy" >
-         <input type="submit" value="Start Learning" class="btn btn-success"/>
-    </form>
+   
