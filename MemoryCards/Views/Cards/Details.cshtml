@@ -4,7 +4,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style >
+    body {
+        background-color: #0e192b;
+        color: #fff;
+         }
+</style >
 
 <div>
     <h4>CardModel</h4>
@@ -43,6 +48,8 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a method="post" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            
+ 
+    <a asp-action="Index" class="btn btn-secondary">Back to list </a>
 </div>

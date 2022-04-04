@@ -13,8 +13,16 @@ namespace MemoryCards.Repositories
         public void Add(CardModel card)
         {
             card.FirstAttemp = true;
-            _context.Cards.Add(card);
-            _context.SaveChanges();
+            if(card is null)
+            {
+               
+            }
+            else
+            {
+                _context.Cards.Add(card);
+                _context.SaveChanges();
+            }
+           
         }
             
         
@@ -29,7 +37,6 @@ namespace MemoryCards.Repositories
             {
                 result.Question = model.Question;
                 result.Answer = model.Answer;
-                result.level = model.level;
 
                 _context.SaveChanges();
             }

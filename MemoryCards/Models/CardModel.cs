@@ -1,4 +1,6 @@
-﻿namespace MemoryCards.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MemoryCards.Models
 
 {
     public class CardModel

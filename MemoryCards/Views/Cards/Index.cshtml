@@ -3,17 +3,32 @@
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-    body{
-        background-color: #0e192b;
-    }
-    h1{
-        color: #fff;
-    }
-</style>
-<h1>All Your MemoryCards</h1>
 
-    <a asp-action="Create">
+<style >
+    body {
+        background-color: #0e192b;
+        color: #fff;
+         }
+    .Mycontainer {
+     height: 200px;
+     position: relative;
+     border: 3px solid green;
+}
+
+    .vertical-center {
+    margin: 0;
+     position: absolute;
+     top: 50%;
+     -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+</style >
+
+
+
+<h1 style="text-align: center;">All Your MemoryCards</h1>
+
+    <div class="Mycontainer">
+        <a asp-action="Create">
         <input type="submit" value="Create new" class="btn btn-outline-primary"/>
     </a>
 
@@ -21,6 +36,8 @@
          <input type="submit" value="Start Learning" class="btn btn-outline-success"/>
     </a>
     <br/>
+    </div>
+    
 
 <table style=" margin-top: 10px;" class="table table-dark">
     <thead>
@@ -62,9 +79,9 @@
                 @Html.DisplayFor(modelItem => item.level)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id } , new {@class = "btn btn-outline-warning"} ) 
+                @Html.ActionLink("Details", "Details", new {  id=item.Id  }, new {@class = "btn btn-outline-info"}) 
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  }, new {@class = "btn btn-outline-danger"})
                 
             </td>
         </tr>

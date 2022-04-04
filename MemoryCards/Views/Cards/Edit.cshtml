@@ -4,6 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 
+
+<style >
+    body {
+        background-color: #0e192b;
+        color: #fff;
+         }
+</style >
+
 <h1>Edit</h1>
 
 <h4>CardModel</h4>
@@ -23,16 +31,19 @@
                 <input asp-for="Answer" class="form-control" />
                 <span asp-validation-for="Answer" class="text-danger"></span>
             </div>
-           
-            
-            <div class="form-group">
+                   
+            <a asp-action="Index">
                 <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">Back to list </a>
         </form>
+          
+                 
+          
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+           
+
 
