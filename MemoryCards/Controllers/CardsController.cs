@@ -10,6 +10,7 @@ namespace MemoryCards.Controllers
         private readonly ICardRepository _cardRepository;
         private ICardTempRepository _cardTempRepository;
         private readonly ICardService _service;
+        
         public CardsController(ICardService service, ICardRepository cardRepository, ICardTempRepository cardTempRepository)
         {
             _service = service;
@@ -17,9 +18,9 @@ namespace MemoryCards.Controllers
             _cardTempRepository = cardTempRepository;
         }
 
-
         public ActionResult Mainy()
         {
+            
             var chosenCard = _service.Mainy(_cardTempRepository.GetAll());
             if (chosenCard == null)
             {

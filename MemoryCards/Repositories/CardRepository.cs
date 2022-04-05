@@ -24,8 +24,7 @@ namespace MemoryCards.Repositories
             }
            
         }
-            
-        
+                
         public CardModel Get(int id)
            => _context.Cards.SingleOrDefault(card => card.Id == id);
         
